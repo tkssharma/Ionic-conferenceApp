@@ -1,0 +1,35 @@
+<ion-view view-title="Browse">
+ <ion-pane ng-controller="ListController" >
+
+        <div class="bar bar-subheader item-input-inset bar-light">
+        <button
+            class="button button-icon ion-minus-circled"
+            ng-click="data.showDelete = !data.showDelete; data.showReorder=false;">
+          </button>
+          <label class="item-input-wrapper">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input ng-model="query" type="search" placeholder="Search">
+          </label>
+          <button
+            class="button button-icon ion-navicon"
+            ng-click="data.showReorder = !data.showReorder; data.showDelete=false;">
+          </button>
+        </div>
+        <ion-content class="has-subheader">
+          <ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
+            <ion-item ng-repeat="speaker in speakers|filter: query" class="item-thumbnail-left item-text-wrap">
+                <img src="/pics/{{speaker.pic}}" alt="{{ speaker.name }} Photo"/>
+                <h2>{{ speaker.name }}</h2>
+                <h3>{{ speaker.title }}</h3>
+
+                <ion-delete-button class="ion-minus-circled"
+                  ng-click="onItemDelete(speaker)">
+                </ion-delete-button>
+                <ion-reorder-button class="ion-navicon"
+                  on-reorder="moveItem(speaker,$fromIndex,$toIndex)">
+                </ion-reorder-button>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+    </ion-pane>
+</ion-view>
